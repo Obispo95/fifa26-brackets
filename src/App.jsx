@@ -141,42 +141,50 @@ function TeamSlot({ label, value, team, onDropName, onClear }) {
 
 function ScoreRow({ m, onChange }) {
   return (
-    <div className="grid grid-cols-5 gap-2 text-sm">
-      <div className="col-span-2 flex items-center gap-2">
-        <Tag>Ida</Tag>
-        <input
-          type="number"
-          className="w-16 px-2 py-1 rounded-lg border"
-          value={m.leg1A}
-          onChange={(e) => onChange({ leg1A: e.target.value })}
-          placeholder="A"
-        />
-        <span className="text-gray-500">-</span>
-        <input
-          type="number"
-          className="w-16 px-2 py-1 rounded-lg border"
-          value={m.leg1B}
-          onChange={(e) => onChange({ leg1B: e.target.value })}
-          placeholder="B"
-        />
+    <div className="grid grid-cols-6 gap-2 text-sm max-w-xl mx-auto w-full">
+      <div className="col-span-3 flex flex-row sm:flex-row items-stretch gap-2 bg-white/60 rounded-lg p-2 min-w-0">
+        <div className="flex flex-col justify-center">
+          <Tag>Ida</Tag>
+        </div>
+        <div className="flex items-center gap-2 w-full flex-wrap">
+          <input
+            type="number"
+            className="w-12 sm:w-16 px-2 py-1 rounded-lg border min-w-0"
+            value={m.leg1A}
+            onChange={(e) => onChange({ leg1A: e.target.value })}
+            placeholder="A"
+          />
+          <span className="text-gray-300">-</span>
+          <input
+            type="number"
+            className="w-12 sm:w-16 px-2 py-1 rounded-lg border min-w-0"
+            value={m.leg1B}
+            onChange={(e) => onChange({ leg1B: e.target.value })}
+            placeholder="B"
+          />
+        </div>
       </div>
-      <div className="col-span-2 flex items-center gap-2">
-        <Tag>Vuelta</Tag>
-        <input
-          type="number"
-          className="w-16 px-2 py-1 rounded-lg border"
-          value={m.leg2A}
-          onChange={(e) => onChange({ leg2A: e.target.value })}
-          placeholder="A"
-        />
-        <span className="text-gray-500">-</span>
-        <input
-          type="number"
-          className="w-16 px-2 py-1 rounded-lg border"
-          value={m.leg2B}
-          onChange={(e) => onChange({ leg2B: e.target.value })}
-          placeholder="B"
-        />
+      <div className="col-span-3 flex flex-row sm:flex-row items-stretch gap-2 bg-white/60 rounded-lg p-2 min-w-0">
+        <div className="flex flex-col justify-center">
+          <Tag>Vuelta</Tag>
+        </div>
+        <div className="flex items-center gap-2 w-full flex-wrap">
+          <input
+            type="number"
+            className="w-12 sm:w-16 px-2 py-1 rounded-lg border min-w-0"
+            value={m.leg2A}
+            onChange={(e) => onChange({ leg2A: e.target.value })}
+            placeholder="A"
+          />
+          <span className="text-gray-300">-</span>
+          <input
+            type="number"
+            className="w-12 sm:w-16 px-2 py-1 rounded-lg border min-w-0"
+            value={m.leg2B}
+            onChange={(e) => onChange({ leg2B: e.target.value })}
+            placeholder="B"
+          />
+        </div>
       </div>
     </div>
   );
@@ -188,10 +196,10 @@ function MatchCard({ title, match, onUpdate, onAdvance, assignments }) {
   return (
     <div className="rounded-2xl border shadow-sm p-3 bg-white/70 backdrop-blur">
       <div className="flex items-center justify-between mb-2">
-        <h4 className="font-semibold text-sm text-gray-700">{title}</h4>
-        <div className="text-xs text-gray-500">Global: {a} – {b}</div>
+        <h4 className="font-semibold text-sm text-gray-900">{title}</h4>
+        <div className="text-xs text-gray-900">Global: {a} – {b}</div>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-2 text-black">
         <TeamSlot
           label="Equipo A"
           value={match.teamA}
@@ -340,15 +348,15 @@ export default function App() {
           <DraggableName key={n} name={n} from="pool" team={assignments[n]} />
         ))}
         {pool.length === 0 && (
-          <div className="text-sm text-gray-500 col-span-full">Arrastra aquí para devolver jugadores a la reserva</div>
+          <div className="text-sm text-gray-300 col-span-full">Arrastra aquí para devolver jugadores a la reserva</div>
         )}
       </div>
     </div>
   );
 
   const Round = ({ title, roundKey }) => (
-    <div className="space-y-3">
-      <h3 className="font-semibold text-gray-700">{title}</h3>
+    <div className="space-y-1">
+      <h3 className="font-semibold text-gray-800 bg-white/70 rounded-full px-4 py-1">{title}</h3>
       <div className="grid gap-3">
         {bracket[roundKey].map((m, i) => (
           <MatchCard
@@ -365,8 +373,8 @@ export default function App() {
   );
 
   const FinalRound = () => (
-    <div className="space-y-3">
-      <h3 className="font-semibold text-gray-700">Final</h3>
+    <div className="space-y-1">
+      <h3 className="font-semibold text-gray-800 bg-white/60 rounded-full px-4 py-1">Final</h3>
       <MatchCard
         title="Gran Final"
         match={bracket.final[0]}
@@ -380,23 +388,23 @@ export default function App() {
   const champion = useMemo(() => whoWins(bracket.final[0]), [bracket]);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-emerald-50 text-gray-900">
+    <div className="min-h-screen w-full from-indigo-50 via-white to-emerald-50 text-gray-900">
       <div className="max-w-6xl mx-auto p-4 sm:p-8">
         <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight">FIFA 26 – Bracket</h1>
-            <p className="text-gray-600">Arrastra los jugadores, anota ida/vuelta y avanza ganadores.</p>
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white">FIFA 26 – Bracket KKK 2025</h1>
+            <p className="text-gray-200">Arrastra los jugadores, anota ida/vuelta y avanza ganadores.</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button className="px-3 py-2 rounded-xl border bg-white hover:bg-gray-50" onClick={resetAll}>Reiniciar</button>
-            <button className="px-3 py-2 rounded-xl border bg-white hover:bg-gray-50" onClick={seedDefault}>Sembrar fijo</button>
-            <button className="px-3 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700" onClick={shuffleSeeds}>Sembrar aleatorio</button>
-            <button className="px-3 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700" onClick={assignTeams}>Asignar equipos</button>
+            <button className="px-3 py-2 rounded-xl border bg-white hover:bg-gray-50" onClick={seedDefault}>Asignar predefinido</button>
+            <button className="px-3 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700" onClick={shuffleSeeds}>Asignar aleatorio</button>
+            <button className="px-3 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700" onClick={assignTeams}>Asignar equipos aleatorios</button>
           </div>
         </header>
 
         <section className="mb-8">
-          <h2 className="font-semibold text-gray-700 mb-2">Reserva de jugadores (arrastra a los slots)</h2>
+          <h2 className="font-semibold text-gray-200 mb-2">Reserva de jugadores (arrastra a los slots)</h2>
           <PoolDropZone />
         </section>
 
@@ -410,7 +418,7 @@ export default function App() {
           <div className="rounded-2xl bg-white border p-4 flex items-center justify-between">
             <div className="text-sm text-gray-600">Tip: puedes devolver un jugador a la reserva soltándolo sobre el cuadro punteado de arriba.</div>
             <div className="text-right">
-              <div className="text-xs text-gray-500">Campeón (según global de la Final)</div>
+              <div className="text-xs text-gray-300">Campeón (según global de la Final)</div>
               <div className="text-xl font-bold">{champion && champion !== 'EMPATE' ? champion : '—'}</div>
             </div>
           </div>
